@@ -26,4 +26,4 @@ add_executable(client
         cuser_cmd.h
 )
 
-link_libraries(client, "ws2_32.lib")
+target_link_libraries(client ws2_32)

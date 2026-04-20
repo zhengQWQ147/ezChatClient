@@ -12,5 +12,8 @@
 #include <Ws2tcpip.h>
 #include <Windows.h>
 #include <time.h>
+#include <pthread.h>
+
+#include "client_config.h"
 
 #endif //CLIENT_IM_CLIENT_H
