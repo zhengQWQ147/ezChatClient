@@ -9,9 +9,10 @@
 #include "list.h"
 
 struct client_friend {
-    char friend_name[MAX_NAME_LEN];
-    int friend_id;
-    struct list_head friend_node;
+    char friend_name[MAX_NAME_LEN]; //好友昵称
+    int friend_id;                  //好友id
+    struct list_head friend_node;   //链表节点
+    int friend_stat;                //好友状态
 } CLIENT_FRIEND;
 
 //遍历链表,返回client_friend结构体指针
