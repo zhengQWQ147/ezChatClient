@@ -3,6 +3,9 @@
 //
 #include "im_client.h"
 #include "cuser_cmd.h"
+#include "client_user.h"
+#include "msg_type.h"
+#include "cmsg_encode.h"
 
 //用户输入命令处理
 // 参数：
@@ -21,11 +24,66 @@ int user_cmd_process(char *buff) {
     }
 }
 
+//命令字段分解函数
+int cmdline_process(char *next_token, char **p, int len, int strict) {
+    int n;  //字段数
+    char *token = NULL, seps[] = "\t";
+    if (strict) {n = len;}
+    else {n = len -1;}
+
+    for (int i = 0; i < n; i++) {
+        token = strtok_s(NULL, seps, &next_token);
+        p[i] = token;
+        if (i != n-1 && !p[i]) return -1;   //缺少字段
+    }
+    if (strict && p[len -1]) return -1;  //多余字段
+    if (!strict) {
+        p[len -1] = next_token;
+        if (next_token) {
+            return -1;
+        }
+    }
+    return 0;
+}
+
 
 int user_stat_check(char *token) {
     return 0;
 }
 
 int reg_cmd_process(char *next_token) {
+    int len;
+    char *p[REG_CMD_FLDS]; //用户名 密码 密码
+
+    if (cmdline_process(next_token, p, REG_CMD_FLDS, 1) < 0) {
+        fprintf(stderr, "%s%s",INV_C_USAGE, REG_C_USAGE);
+        return -1;
+    }
+
+    if (strlen(p[0]) > MAX_NAME_LEN -1) {
+        fprintf(stderr, "用户名长度不能超过%d\n%s",MAX_NAME_LEN, REG_C_USAGE);
+        return -1;
+    }
+
+    if (strcmp(p[1], p[2]) != 0) {
+        fprintf(stderr, "前后密码不一致\n%s",REG_C_USAGE);
+        return -1;
+    }
+
+    if (strlen(p[1]) > MAX_PASSWORD_LEN -1) {
+        fprintf(stderr, "密码长度不能超过%d\n%s",MAX_PASSWORD_LEN, REG_C_USAGE);
+        return -1;
+    }
+
+    strcpy(user_self.self_name, p[0]);
+    strcpy(user_self.self_passwd, p[1]);
+
+    //清空缓存
+    memset(user_self.self_buff, 0, MAX_MSG_SIZE);
+    encode_reg_msg(user_self.self_buff, &len, 0);
+    client_send(user_self.self_buff, len);
+
+    user_self.self_msg_stat = MSG_RECVING;  //接收状态,等待服务器反馈
+
     return 0;
 }

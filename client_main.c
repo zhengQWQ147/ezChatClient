@@ -4,6 +4,8 @@
 
 #include "client_user.h"
 #include "im_client.h"
+#include "cmsg_decode.h"
+#include "cuser_cmd.h"
 
 //socket库初始化
 void socklib_init() {
@@ -61,14 +63,49 @@ int init_args(int argc, char *argv[]) {
     return 0;
 }
 
+//子线程
+void *client_cli_thread(void *arg) {
+    char line[MAX_LINE_LEN];
+    char user_prompt[MAX_PROMPT_LEN];
+
+    while (1) {
+        if (user_self.self_id != -1) {_snprintf(user_prompt, MAX_PROMPT_LEN, "%s <%s> <cmd:>",USER_PROM, user_self.self_name);}    // IM_client <name> <cmd:>
+        else {_snprintf(user_prompt, MAX_PROMPT_LEN, "%s <unknown> <cmd:>",USER_PROM);}                    // IM_client <unknown> <cmd:>
+
+        printf("%s", user_prompt);
+
+        //读取用户输入
+        memset(line, 0, MAX_LINE_LEN);
+        if (fgets(line, MAX_LINE_LEN, stdin) == NULL) break;
+        if (line[strlen(line) -1] == '\n') line[strlen(line) -1] = '\0';
+        //-2为退出命令
+        if (user_cmd_process(line) == -2) {
+            printf("client: user logout...\n");
+            break;
+        }
+    }
+
+    closesocket(user_self.self_socket_fd);
+    return NULL;
+}
+
 //客户端主循环处理函数
 void client_main_loop() {
+    pthread_t client_stdin_pid;
+    pthread_create(&client_stdin_pid, NULL, client_cli_thread, NULL);
+    int len;
+    while ((len = recv(user_self.self_socket_fd, user_self.self_buff, MAX_MSG_SIZE, 0))> 0) {
+        printf("client: recv msg len = %d",len);
+        decode_server_resp(user_self.self_buff, len);
+    }
 
+    printf("client: recv len < 0, exiting...\n");
 }
 
 //清理函数
 void sock_cleanup(int fd) {
-
+    closesocket(fd);
+    WSACleanup();
 }
 
 

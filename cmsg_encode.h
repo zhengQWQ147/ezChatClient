@@ -10,6 +10,7 @@
 
 void init_msg_hdr(MSG_HDR *msg_hdr, unsigned char type, unsigned char stype, int len);                              //初始化消息头
 int init_reg_struct(REG_MSG *reg_msg, USER_SELF *userSelf);                                                         //初始化注册结构体
+int encode_reg_msg(char *buff, int *len, unsigned char stype);                                                      //编码注册消息
 int init_login_struct(LOGIN_MSG *login_msg, USER_SELF *userSelf);                                                   //初始化登录结构体
 int encode_login_msg(const char *buff, int *len, unsigned char stype);                                              //编码登录消息
 int init_chat_struct(CHAT_MSG *chat_msg, USER_SELF *userSelf, char *msg, int recv_id);                              //初始化聊天结构体
