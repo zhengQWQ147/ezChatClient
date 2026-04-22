@@ -1,7 +1,6 @@
 //
 // Created by SHZheng_Li on 2026/4/20.
 //
-
 #ifndef CLIENT_CUSER_CMD_H
 #define CLIENT_CUSER_CMD_H
 
@@ -32,6 +31,8 @@
 #define INV_C_USAGE         "无法解析用户命令\n\n"
 //命令处理函数
 int user_cmd_process(char *buff);
+//客户端发送命令
+int client_send(char *buff, int len);
 //命令字段分解函数
 // 参数：
 // @next_token: 去除命令关键字的命令行字符串指针
@@ -43,5 +44,7 @@ int cmdline_process(char *next_token, char **p, int len, int strict);
 int user_stat_check(char *token);
 //处理注册
 int reg_cmd_process(char *next_token);
+//处理登录
+int login_cmd_process(char *next_token);
 
 #endif //CLIENT_CUSER_CMD_H

@@ -8,7 +8,7 @@
 #include "msg_type.h"
 #include "list.h"
 
-struct client_friend {
+typedef struct client_friend {
     char friend_name[MAX_NAME_LEN]; //好友昵称
     int friend_id;                  //好友id
     struct list_head friend_node;   //链表节点
@@ -46,8 +46,10 @@ typedef struct user_self {
 } USER_SELF;
 
 extern struct user_self user_self;
-int init_user_struct(USER_SELF *userSelf);  //初始化用户结构体
-int user_list_add(USER_SELF *userSelf);     //添加用户
-
+int init_user_struct(USER_SELF *userSelf);                 //初始化用户结构体
+int user_list_add(FRIEND_STAT *friend_stat, short friend_num);     //添加用户
+int user_list_del(FRIEND_STAT *friend_stat, short friend_num);     //删除用户
+int user_list_update(FRIEND_STAT *friend_stat, short friend_num);     //更新用户
+int user_list_output(FRIEND_STAT *friend_stat, short friend_num);     //输出用户
 
 #endif //CLIENT_CLIENT_USER_H

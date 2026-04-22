@@ -19,12 +19,20 @@ int user_cmd_process(char *buff) {
 
     if (user_stat_check(token) < 0) return -1;  //用户状态检查
 
-    if (_stricmp(token, REG_CMD)) {
+    if (_stricmp(token, REG_CMD) == 0) {
         return reg_cmd_process(next_token);
+    }
+    if (_stricmp(token, LOGIN_CMD) == 0) {
+        return login_cmd_process(next_token);
     }
 }
 
 //命令字段分解函数
+// 参数：
+// @next_token: 去除命令关键字的命令行字符串指针
+// @p:各个字段的指针数组
+// @len:字段数
+// @strict:是否严格检查格式标志<1|0>
 int cmdline_process(char *next_token, char **p, int len, int strict) {
     int n;  //字段数
     char *token = NULL, seps[] = "\t";
@@ -45,12 +53,24 @@ int cmdline_process(char *next_token, char **p, int len, int strict) {
     }
     return 0;
 }
-
+//发送函数
+// 参数：
+// @buff:发送缓冲区
+// @len:发送长度
+int client_send(char *buff, int len) {
+    int n;  //成功发送长度
+    n = send(user_self.self_socket_fd, buff, len, 0);
+    if (n != len) {
+        closesocket(user_self.self_socket_fd);
+        init_user_struct(&user_self);
+    }
+    return n;
+}
 
 int user_stat_check(char *token) {
     return 0;
 }
-
+//注册处理
 int reg_cmd_process(char *next_token) {
     int len;
     char *p[REG_CMD_FLDS]; //用户名 密码 密码
@@ -84,6 +104,12 @@ int reg_cmd_process(char *next_token) {
     client_send(user_self.self_buff, len);
 
     user_self.self_msg_stat = MSG_RECVING;  //接收状态,等待服务器反馈
+
+    return 0;
+}
+//登录处理
+int login_cmd_process(char *next_token) {
+
 
     return 0;
 }

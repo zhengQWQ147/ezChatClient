@@ -88,7 +88,7 @@ typedef struct friend_stat {
 typedef struct friend_op_resp {
     short friend_stat;  //好友在线状态
     short friend_num;   //成功的个数
-    FRIEND_STAT friend_ok_friend[0];
+    FRIEND_STAT friend_ok_friend[0];    //好友状态
 } FRIEND_OP_RESP;
 
 
