@@ -27,3 +27,7 @@ int handle_login_resp(LOGIN_MSG_RESP *login_resp) {
     fprintf(stderr, "user %s login failed, reason: %s\n", user_self.self_name, login_resp->login_reason);
     return -1;
 }
+// 处理好友管理消息
+int handle_friend_mgt_resp(unsigned short stype, FRIEND_OP_RESP *friend_op_resp, FRIEND_STAT *friend_stat, short friend_number) {
+    printf("client: recv friend mgt resp, stype = %d, count = %d, from server...\n", stype, friend_number);
+}
