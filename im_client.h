@@ -5,12 +5,12 @@
 #ifndef CLIENT_IM_CLIENT_H
 #define CLIENT_IM_CLIENT_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <Winsock2.h>
-#include <Ws2tcpip.h>
+#include <stdio.h>
 #include <Windows.h>
+#include <Ws2tcpip.h>
+#include <string.h>
+#include <stdlib.h>
 #include <time.h>
 #include <pthread.h>
 

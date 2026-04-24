@@ -3,7 +3,6 @@
 //
 #include "msg_cipher.h"
 #include "im_client.h"
-
 //消息加密
 // 参数：
 // @msg: 待加密消息

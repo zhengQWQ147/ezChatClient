@@ -113,3 +113,19 @@ int login_cmd_process(char *next_token) {
 
     return 0;
 }
+
+int logout_cmd_process(char *next_token) {
+    int len;
+    char *p[LOGOUT_CMD_FLDS];
+    if(cmdline_process(next_token, p, LOGOUT_CMD_FLDS, 1) == -1) {
+        fprintf(stderr, "%s%s",INV_C_USAGE, EXIT_C_USAGE);
+        return -1;
+    }
+    if (user_self.self_msg_stat == LOGIN_CSTAT) {
+        memset(user_self.self_buff, 0, MAX_MSG_SIZE);
+        encode_logout_msg(user_self.self_buff, &len, 0);
+        send(user_self.self_socket_fd, user_self.self_buff, len, 0);
+        user_self.self_msg_stat = MSG_RECVING;
+    }
+    return -2;
+}

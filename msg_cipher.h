@@ -4,7 +4,7 @@
 
 #ifndef CLIENT_MSG_CIPHER_H
 #define CLIENT_MSG_CIPHER_H
-#define CIPER_KEY   13
+#define CIPHER_KEY   13
 
 void msg_encipher(char *msg, int key);  //消息加密
 void msg_decipher(char *msg, int key);  //消息解密

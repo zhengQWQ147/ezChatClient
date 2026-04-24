@@ -8,11 +8,13 @@
 #define MAX_PROMPT_LEN      64
 #define USER_PROM           "IM_client"
 
+#define REG_CMD_FLDS        4                   //注册命令字段数
+#define LOGIN_CMD_FLDS      3                   //登录命令字段数
+#define LOGOUT_CMD_FLDS     1                   //登出命令字段数
+
 // 用户命令
 #define REG_CMD             "reg"               //注册 reg <username> <password> <password>
-#define REG_CMD_FLDS        4                   //注册命令字段数
 #define LOGIN_CMD           "login"             //登录 login <username> <password>
-#define LOGIN_CMD_FLDS      3                   //登录命令字段数
 #define FRIEND_LIST_CMD     "friend_list"       //获取好友列表
 #define FRIEND_ADD_CMD      "add_friend"        //添加好友
 #define FRIEND_DEL_CMD      "del_friend"        //删除好友
@@ -26,7 +28,7 @@
 
 #define REG_C_USAGE         "reg <username> <password> <password> 通过用户名和密码注册用户。\n"
 #define FRIEND_LIST_C_USAGE "friend_list 列出当前用户的所有好友。\n"
-
+#define EXIT_C_USAGE        "exit 用户退出\n"
 
 #define INV_C_USAGE         "无法解析用户命令\n\n"
 //命令处理函数
@@ -46,5 +48,7 @@ int user_stat_check(char *token);
 int reg_cmd_process(char *next_token);
 //处理登录
 int login_cmd_process(char *next_token);
+//处理登出
+int logout_cmd_process(char *next_token);
 
 #endif //CLIENT_CUSER_CMD_H

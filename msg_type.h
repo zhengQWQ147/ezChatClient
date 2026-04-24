@@ -102,13 +102,13 @@ typedef struct chat_msg {
 } CHAT_MSG;
 
 //聊天消息发送结果
-#define SAND_OK     1
-#define SAND_FAIL   2
+#define SEND_OK     1
+#define SEND_FAIL   2
 
 //聊天反馈消息结构体
 typedef struct chat_resp {
     int chat_stat;       //返回聊天发送结果
-    char c_reason[0];    //错误原因，指针
+    char chat_reason[0];    //错误原因，指针
 } CHAT_RESP;
 
 
