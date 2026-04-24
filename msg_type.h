@@ -32,6 +32,7 @@ typedef struct reg_msg_data {
     char rPasswd[MAX_PASSWORD_LEN];
 } REG_MSG;
 
+#define MAX_ERR_LEN 80
 //注册回复消息结构体
 typedef struct reg_msg_resp {
     //将uid返回客户端，-1表示错误

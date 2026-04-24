@@ -17,6 +17,12 @@ void socklib_init() {
     }
 }
 
+//清理函数
+void sock_cleanup(int fd) {
+    closesocket(fd);
+    WSACleanup();
+}
+
 //客户端socket初始化
 int client_socket_init(char *addr) {
     int socket_fd;
@@ -46,7 +52,6 @@ int client_socket_init(char *addr) {
     return 0;
 }
 
-//用户结构初始化
 //参数初始化
 int init_args(int argc, char *argv[]) {
     if (argc != 2) {
@@ -101,13 +106,6 @@ void client_main_loop() {
 
     printf("client: recv len < 0, exiting...\n");
 }
-
-//清理函数
-void sock_cleanup(int fd) {
-    closesocket(fd);
-    WSACleanup();
-}
-
 
 //主函数
 // 参数：

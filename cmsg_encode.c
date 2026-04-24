@@ -75,7 +75,7 @@ int init_chat_struct(CHAT_MSG *chat_msg, USER_SELF *userSelf, char *msg, int rec
     chat_msg->chat_sid = htonl(userSelf->self_id);
     chat_msg->chat_rid = htonl(recv_id);
 
-    msg_encipher(msg, CIPER_KEY); //消息加密
+    msg_encipher(msg, CIPHER_KEY); //消息加密
     strcpy(chat_msg->chat_msg, msg);
 
     return sizeof(*chat_msg) + strlen(msg) +1;// +1是'\0'
