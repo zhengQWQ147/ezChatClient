@@ -5,7 +5,7 @@
 #include "im_client.h"
 #include "cmsg_encode.h"
 #include "msg_cipher.h"
-
+struct user_self user_self;
 // 初始化消息头
 // 参数：
 // @msg_hdr: 存放消息头结构体的指针
@@ -35,7 +35,10 @@ int init_reg_struct(REG_MSG *reg_msg, USER_SELF *userSelf) {
 //编码注册消息
 int encode_reg_msg(char *buff, int *len, unsigned char stype) {
     *len = init_reg_struct((REG_MSG *) ((MSG_HDR *) buff)->msg_data, &user_self);
+    init_msg_hdr((MSG_HDR *) buff, MSG_REG, stype, sizeof(REG_MSG));
+    *len += sizeof(MSG_HDR);
 
+    return *len;
 }
 
 // 初始化登录结构体

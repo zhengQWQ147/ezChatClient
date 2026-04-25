@@ -15,5 +15,5 @@
 #include <pthread.h>
 
 #include "client_config.h"
-
+extern struct user_self user_self;
 #endif //CLIENT_IM_CLIENT_H

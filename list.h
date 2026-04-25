@@ -28,13 +28,13 @@ struct list_head {
     for (pos = (head)->prev; pos != (head); pos = pos->prev)
 
 //计算偏移量
-#define offsetof(type, member) ((size_t)(&((type *)0) -> member))
+// #define offsetof(type, member) ((size_t)(&((type *)0) -> member))
 
 #define container_of(ptr, type, member) \
-    (char *)(ptr) - offsetof(type, member)
+    ((char *)(ptr)) - offsetof(type, member)
 
 #define list_entry(ptr, type, member) \
-    container_of(ptr, type, member);
+    container_of(ptr, type, member)
 
 
 

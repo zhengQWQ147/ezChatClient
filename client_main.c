@@ -111,6 +111,9 @@ void client_main_loop() {
 // 参数：
 // IPV4地址
 int main(int argc, char *argv[]) {
+    // 1. 解决中文乱码
+    system("chcp 65001");
+
     //用户结构初始化
     init_user_struct(&user_self);
     //参数初始化
@@ -119,4 +122,7 @@ int main(int argc, char *argv[]) {
     client_main_loop();
     //清理函数
     sock_cleanup(user_self.self_socket_fd);
+
+    printf("\n按回车键退出...");
+    getchar();  // 等待回车
 }

@@ -7,6 +7,7 @@
 
 #include "msg_type.h"
 #include "list.h"
+#include "im_client.h"
 
 typedef struct client_friend {
     char friend_name[MAX_NAME_LEN]; //好友昵称
@@ -45,7 +46,6 @@ typedef struct user_self {
     char self_msg_type;                     //消息类型
 } USER_SELF;
 
-extern struct user_self user_self;
 int init_user_struct(USER_SELF *userSelf);                 //初始化用户结构体
 int user_list_add(FRIEND_STAT *friend_stat, short friend_num);     //添加用户
 int user_list_del(FRIEND_STAT *friend_stat, short friend_num);     //删除用户
