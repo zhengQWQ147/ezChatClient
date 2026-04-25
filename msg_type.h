@@ -20,7 +20,7 @@ typedef struct msg_header {
 #define F_LREG      0x01    //好友注册
 #define F_ADD       0x02    //添加好友
 #define F_DEL       0x03    //删除好友
-#define F_ALST      0x04    //显示所有好友
+#define F_ALST      0x04    //显示所有用户
 #define F_STAT      0x05    //查询好友状态
 
 //注册消息 与 注册回复消息

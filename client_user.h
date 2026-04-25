@@ -16,7 +16,7 @@ typedef struct client_friend {
 } CLIENT_FRIEND;
 
 //遍历链表,返回client_friend结构体指针
-#define ufriend_for_each_entry(pos, head, member) \
+#define user_friend_for_each_entry(pos, head, member) \
 for (   \
         pos = (CLIENT_FRIEND *) list_entry((head)->next, CLIENT_FRIEND, member); \
         &pos->member != (head); \

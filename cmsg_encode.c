@@ -32,6 +32,12 @@ int init_reg_struct(REG_MSG *reg_msg, USER_SELF *userSelf) {
     return sizeof(*reg_msg);
 }
 
+//编码注册消息
+int encode_reg_msg(char *buff, int *len, unsigned char stype) {
+    *len = init_reg_struct((REG_MSG *) ((MSG_HDR *) buff)->msg_data, &user_self);
+
+}
+
 // 初始化登录结构体
 // 参数：
 // @login_msg: 存放登录结构体的指针

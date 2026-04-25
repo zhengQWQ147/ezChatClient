@@ -57,6 +57,7 @@ int handle_friend_mgt_resp(unsigned short stype, FRIEND_OP_RESP *friend_op_resp,
         default:
             break;
     }
+    return 0;
 }
 // 处理聊天消息
 //  其他用户-->自己
@@ -69,7 +70,6 @@ int handle_chat_msg_or_resp(CHAT_MSG *chat_msg, CHAT_RESP *chat_resp) {
     // 他人发送给自己
     return handle_chat_msg(chat_msg);
 }
-
 // 处理服务器反馈
 int handle_chat_resp(CHAT_RESP *chat_resp) {
     printf("client: recv chat msg resp from server...\n");
@@ -86,4 +86,6 @@ int handle_chat_msg(CHAT_MSG *chat_msg) {
     printf("client: chat msg from %d: %s\n", chat_msg->chat_sid, chat_msg->chat_msg);
 
     client_log_save(chat_msg->chat_msg, chat_msg->chat_sid, chat_msg->chat_rid);
+
+    return 0;
 }

@@ -77,7 +77,13 @@ int user_list_del(FRIEND_STAT *friend_stat, short friend_num) {
     return 0;
 }
 //更新用户
-int user_list_update(FRIEND_STAT *friend_stat, short friend_num);
+int user_list_update(FRIEND_STAT *friend_stat, short friend_num) {
+    for (int i = 0; i < friend_num; i++) {
+        printf("client: user %d, name = %s, id = %d, state = %d\n",
+        i, friend_stat[i].friend_name, friend_stat[i].friend_id, friend_stat[i].friend_stat);
+    }
+    return 0;
+}
 //输出用户
 int user_list_output(FRIEND_STAT *friend_stat, short friend_num) {
     for (int i = 0; i < friend_num; i++) {
