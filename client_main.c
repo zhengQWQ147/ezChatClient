@@ -117,9 +117,10 @@ int main(int argc, char *argv[]) {
     //用户结构初始化
     init_user_struct(&user_self);
     //参数初始化
-    if (init_args(argc, argv));
-    //客户端主循环处理函数, 主线程
-    client_main_loop();
+    if (init_args(argc, argv) == 0) {
+        //客户端主循环处理函数, 主线程
+        client_main_loop();
+    }
     //清理函数
     sock_cleanup(user_self.self_socket_fd);
 
